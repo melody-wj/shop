@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/angular.min.js"></script>
+	<script src="js/car.js"></script>
+</head>
+<style>
+	.out{
+		width:900px;
+		height:600px;
+		margin:0 auto;
+		border:1px solid purple;
+	}
+	.out .goods{
+		width:290px;
+		float: left;
+	}
+	.out .shopcar{
+		width:580px;
+		float: right;
+	}
+	.out table{
+		border:1px solid #ccc;
+		border-collapse: collapse;
+    	border-spacing: 0px;
+    	border-bottom:0;
+    	border-right:0;
+	}
+	.out table th,.out table td{
+		border-bottom:1px solid #ccc;
+    	border-right:1px solid #ccc;
+    	padding:5px 10px;
+	}
+	.out .shopcar input{
+		width:50px;
+	}
+</style>
+<body>
+	<div class="out" ng-controller="o">
+		<table class="goods">
+			<tr>
+				<th>编号</th>
+				<th>商品</th>
+				<th>单价</th>
+				<th>是否购买</th>
+			</tr>
+			<tr>
+				<td>搜索</td>
+				<td colspan="3"><input type="text" ng-model="o"></td>
+			</tr>
+			<tr ng-repeat="v in goods|filter:o">
+				<td>{{$index+1}}</td>
+				<td>{{v.name}}</td>
+				<td>{{v.price|currency:"￥"}}</td>
+				<td><button ng-click="buyBtn($index)">购买</button></td>
+			</tr>
+		</table>
+		<table class="shopcar">
+			<tr>
+				<th>编号</th>
+				<th>商品</th>
+				<th ng-click="order('price')">单价</th>
+				<th ng-click="order('num')">数量</th>
+				<th ng-click="order('sum')">总价</th>
+				<th>是否删除</th>
+			</tr>
+			<tr ng-repeat="v in buy|orderBy:k:aa"> 
+				<td>{{$index+1}}</td>
+				<td>{{v.name}}</td>
+				<td>{{v.price|currency:"￥"}}</td>
+				<td>
+					<button ng-click="addBtn(v.name)">+</button>
+					<input type="text" ng-model="v.num">
+					<button ng-click="reduceBtn(v.name)">-</button>
+				</td>
+				<td>{{v.sum}}</td>
+				<td><button ng-click="del(v.name)">del</button></td>
+			</tr>
+			<tr>
+				<td>合计</td>
+				<td colspan="5">{{sum()|currency:"￥"}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
