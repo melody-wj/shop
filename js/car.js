@@ -3,7 +3,7 @@ var goods=[
 	{name:'香蕉',price:5},
 	{name:'橘子',price:2.5},
 	{name:'西瓜',price:20},
-	{name:'葡萄',price:3}
+	{name:'葡萄',price:2.5}
 ]
 var app=angular.module('app',[]);
 app.controller('o',function($scope){
